@@ -6,7 +6,7 @@ on:
 
 jobs:
   sync:
-    uses: one-year-gap/infra/.github/workflows/jira-sync-from-github-issue.yml@v18
+    uses: one-year-gap/infra/.github/workflows/jira-sync-from-github-issue.yml@main
     with:
       jira_project_key: HSC
     secrets:
