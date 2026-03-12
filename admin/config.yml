@@ -73,6 +73,11 @@ collections:
       - { label: "기술 선택 이유", name: "decision_reason", widget: "text", required: false,
           hint: "예: 초기엔 구현 복잡도를 낮추고, 트래픽 증가 시 Redis 캐시를 단계적으로 도입" }
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "이미지 (스크린샷, 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
@@ -104,6 +109,11 @@ collections:
           - "성능 최적화"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "스크린샷", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [],
@@ -136,6 +146,11 @@ collections:
           - "성능 최적화"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "스크린샷", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [],
@@ -167,6 +182,11 @@ collections:
           - "성능 최적화"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "이미지", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
@@ -197,6 +217,11 @@ collections:
           - "배치 처리"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "이미지 (ERD, 흐름도 등)", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
@@ -227,6 +252,11 @@ collections:
           - "알림/트리거 설정"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "이미지", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
