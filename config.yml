@@ -1,0 +1,333 @@
+backend:
+  name: github
+  repo: your-org/your-repo        # ← 본인 조직/레포명으로 변경
+  branch: main
+  base_url: https://your-oauth-proxy.workers.dev  # ← OAuth 프록시 URL
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+locale: ko
+
+collections:
+
+  # ──────────────────────────────────────────
+  # 01. 프로젝트 로그
+  # ──────────────────────────────────────────
+  - name: "project-log"
+    label: "📁 프로젝트 로그"
+    label_singular: "프로젝트 로그"
+    folder: "_posts/프로젝트로그"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 고객 상세 화면 설계 완료" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "진행 단계"
+        name: "stage"
+        widget: "select"
+        options:
+          - { label: "🟡 기획 중", value: "기획중" }
+          - { label: "🔵 개발 중", value: "개발중" }
+          - { label: "🟢 완료",    value: "완료" }
+          - { label: "🔴 이슈",    value: "이슈" }
+          - { label: "⏸️ 보류",    value: "보류" }
+      - label: "관련 과업"
+        name: "task"
+        widget: "select"
+        required: false
+        options:
+          - "고객 기본 정보 조회"
+          - "상담 이력 조회 화면"
+          - "백엔드 API 설계/연동"
+          - "고객 특성 생성"
+          - "분류·필터링 기능"
+          - "고객 상세 화면"
+          - "Google 로그인 (선택)"
+          - "통계/차트 화면 (선택)"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지 (스크린샷, 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown" }
+
+  # ──────────────────────────────────────────
+  # 02. 프론트엔드
+  # ──────────────────────────────────────────
+  - name: "frontend"
+    label: "🎨 프론트엔드"
+    label_singular: "프론트엔드"
+    folder: "_posts/프론트엔드"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 고객 목록 필터 컴포넌트 구현" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "화면 구현"
+          - "컴포넌트 설계"
+          - "상태 관리"
+          - "API 연동"
+          - "스타일링"
+          - "성능 최적화"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "스크린샷", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [],
+          hint: "예: React, TypeScript, Tailwind" }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결" }
+
+  # ──────────────────────────────────────────
+  # 03-A. 백엔드 > 추천
+  # ──────────────────────────────────────────
+  - name: "backend-recommend"
+    label: "⚙️ 백엔드 › 추천"
+    label_singular: "추천"
+    folder: "_posts/백엔드/추천"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 고객 유형별 맞춤 서비스 추천 로직 설계" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "추천 알고리즘 설계"
+          - "추천 API 구현"
+          - "모델 연동"
+          - "추천 결과 저장/조회"
+          - "성능 최적화"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 배경 & 목표\n\n## 알고리즘 설계\n\n## API 명세\n\n## 구현\n\n## 테스트 결과" }
+
+  # ──────────────────────────────────────────
+  # 03-B. 백엔드 > 분석
+  # ──────────────────────────────────────────
+  - name: "backend-analysis"
+    label: "⚙️ 백엔드 › 분석"
+    label_singular: "분석"
+    folder: "_posts/백엔드/분석"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 고객 특성 자동 생성 로직 — 상담 이력 기반 분류" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "고객 특성 분류 로직"
+          - "데이터 집계 쿼리"
+          - "분석 API 설계"
+          - "통계 처리"
+          - "배치 처리"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지 (ERD, 흐름도 등)", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 분석 목표\n\n## 데이터 흐름\n\n## 쿼리 / 로직\n\n## API 명세\n\n## 결과 검증" }
+
+  # ──────────────────────────────────────────
+  # 03-C. 백엔드 > 이탈률
+  # ──────────────────────────────────────────
+  - name: "backend-churn"
+    label: "⚙️ 백엔드 › 이탈률"
+    label_singular: "이탈률"
+    folder: "_posts/백엔드/이탈률"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 고객 이탈 예측 점수 산출 로직" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "이탈 예측 모델 연동"
+          - "이탈 점수 계산 로직"
+          - "이탈 기준 정의"
+          - "이탈 위험군 API"
+          - "알림/트리거 설정"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 이탈률 정의 기준\n\n## 점수 산출 로직\n\n## API 명세\n\n## 구현\n\n## 검증" }
+
+  # ──────────────────────────────────────────
+  # 03-D. 백엔드 > 로그 수집
+  # ──────────────────────────────────────────
+  - name: "backend-logging"
+    label: "⚙️ 백엔드 › 로그 수집"
+    label_singular: "로그 수집"
+    folder: "_posts/백엔드/로그수집"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 상담 이력 로그 수집 파이프라인 구성" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "로그 수집 파이프라인"
+          - "로그 저장 스키마"
+          - "로그 조회 API"
+          - "로그 집계/정제"
+          - "모니터링 연동"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지 (파이프라인 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 수집 대상 로그\n\n## 파이프라인 설계\n\n## 저장 스키마\n\n## API 명세\n\n## 운영 고려사항" }
+
+  # ──────────────────────────────────────────
+  # 04. 인프라
+  # ──────────────────────────────────────────
+  - name: "infra"
+    label: "🏗️ 인프라"
+    label_singular: "인프라"
+    folder: "_posts/인프라"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: Docker Compose 개발 환경 세팅" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "로컬 개발 환경"
+          - "CI/CD 파이프라인"
+          - "Docker / 컨테이너"
+          - "클라우드 배포"
+          - "모니터링"
+          - "보안 설정"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "이미지 (아키텍처 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [],
+          hint: "예: Docker, GitHub Actions, AWS, Nginx" }
+      - { label: "본문", name: "body", widget: "markdown" }
+
+  # ──────────────────────────────────────────
+  # 05. 트러블슈팅
+  # ──────────────────────────────────────────
+  - name: "troubleshooting"
+    label: "🔧 트러블슈팅"
+    label_singular: "트러블슈팅"
+    folder: "_posts/트러블슈팅"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: CORS 오류 해결 — axios 인터셉터 설정" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "영역"
+        name: "domain"
+        widget: "select"
+        options: ["프론트엔드", "백엔드", "인프라", "공통"]
+      - label: "심각도"
+        name: "severity"
+        widget: "select"
+        options:
+          - { label: "🟢 Minor — 불편함", value: "Minor" }
+          - { label: "🟡 Major — 기능 막힘", value: "Major" }
+          - { label: "🔴 Critical — 전체 중단", value: "Critical" }
+      - label: "해결 상태"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "✅ 해결됨", value: "resolved" }
+          - { label: "⏳ 진행 중", value: "in-progress" }
+          - { label: "🚫 미해결", value: "unresolved" }
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+
+  # ──────────────────────────────────────────
+  # 06. 팀 컨벤션
+  # ──────────────────────────────────────────
+  - name: "convention"
+    label: "📐 팀 컨벤션"
+    label_singular: "팀 컨벤션"
+    folder: "_posts/팀컨벤션"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: Git 브랜치 전략 및 커밋 메시지 규칙" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "컨벤션 유형"
+        name: "conv_type"
+        widget: "select"
+        options:
+          - "Git 브랜치 전략"
+          - "커밋 메시지 규칙"
+          - "PR / 코드 리뷰 규칙"
+          - "코드 스타일 (FE)"
+          - "코드 스타일 (BE)"
+          - "API 네이밍 규칙"
+          - "DB 네이밍 규칙"
+          - "폴더 구조 규칙"
+          - "회의 진행 방식"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "팀이 합의한 규칙을 명확하게 작성하세요.\n\n## 규칙\n\n## 예시\n\n## 예외 사항" }
+
+  # ──────────────────────────────────────────
+  # 07. 팀 회고
+  # ──────────────────────────────────────────
+  - name: "retrospective"
+    label: "🔄 팀 회고"
+    label_singular: "팀 회고"
+    folder: "_posts/팀회고"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 3월 2주차 주간 회고" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "회고 유형"
+        name: "retro_type"
+        widget: "select"
+        options:
+          - "주간 회고"
+          - "스프린트 회고"
+          - "월간 회고"
+          - "중간 점검"
+          - "프로젝트 종료 회고"
+      - { label: "참여 인원", name: "participants", widget: "string",
+          hint: "예: 김민준, 이수연, 박지호" }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## ✅ Keep (잘된 것)\n\n## 🔧 Problem (문제)\n\n## 💡 Try (다음에 시도할 것)\n\n## 🎯 다음 주 목표" }

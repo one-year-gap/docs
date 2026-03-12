@@ -1,0 +1,66 @@
+# ============================================================
+# 02-pr-check.yml
+# 역할: PR 올라올 때 빌드가 깨지지 않는지 자동 검사
+# 트리거: develop → main PR 생성/업데이트 시
+# ============================================================
+
+name: ✅ PR Build Check
+
+on:
+  pull_request:
+    branches: ["main", "develop"]
+    paths:
+      - "_posts/**"             # 글 변경 시만 실행
+      - "_layouts/**"
+      - "index.html"
+      - "admin/config.yml"
+      - "_config.yml"
+      - "Gemfile"
+
+permissions:
+  contents: read
+  pull-requests: write          # PR 코멘트 권한
+
+jobs:
+  check:
+    name: Jekyll Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ① 체크아웃
+        uses: actions/checkout@v4
+
+      - name: ② Ruby 설치
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: ③ Jekyll 빌드 테스트
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: ④ 빌드 성공 시 PR에 코멘트
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ **빌드 검사 통과!** Jekyll 빌드에 문제가 없습니다. 머지해도 좋아요 🚀'
+            })
+
+      - name: ④ 빌드 실패 시 PR에 코멘트
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **빌드 실패!** Jekyll 빌드 중 오류가 발생했습니다. Actions 탭에서 로그를 확인해주세요.'
+            })

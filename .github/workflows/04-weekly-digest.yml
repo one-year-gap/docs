@@ -1,0 +1,92 @@
+# ============================================================
+# 04-weekly-digest.yml
+# 역할: 매주 월요일 오전 9시, 지난 주 작성된 글 목록을
+#       GitHub Issue로 자동 생성 → 팀 주간 요약으로 활용
+# 트리거: 매주 월요일 09:00 KST (= 00:00 UTC)
+# ============================================================
+
+name: 📋 Weekly Digest Issue
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"           # 매주 월요일 00:00 UTC = 09:00 KST
+  workflow_dispatch:               # 수동 테스트 가능
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-digest:
+    name: Create Weekly Summary Issue
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ① 체크아웃
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # 전체 git 히스토리 필요
+
+      - name: ② 지난 주 추가된 글 목록 수집
+        id: posts
+        run: |
+          # 7일 이내 추가된 마크다운 파일 목록
+          SINCE=$(date -d '7 days ago' '+%Y-%m-%d')
+          echo "since=$SINCE" >> $GITHUB_OUTPUT
+
+          FILES=$(git log --since="$SINCE" --name-only --pretty="" --diff-filter=A \
+            -- '_posts/**/*.md' | sort | uniq)
+
+          if [ -z "$FILES" ]; then
+            echo "has_posts=false" >> $GITHUB_OUTPUT
+            echo "list=이번 주에 작성된 글이 없습니다." >> $GITHUB_OUTPUT
+          else
+            echo "has_posts=true" >> $GITHUB_OUTPUT
+            # 파일 경로에서 카테고리/제목 추출해서 목록 생성
+            LIST=""
+            while IFS= read -r f; do
+              CATEGORY=$(echo "$f" | cut -d'/' -f2-3)  # _posts/카테고리/서브
+              TITLE=$(head -5 "$f" 2>/dev/null | grep "^title:" | sed 's/title: *//;s/"//g' || echo "$f")
+              LIST="$LIST\n- **[$CATEGORY]** $TITLE"
+            done <<< "$FILES"
+            # 멀티라인 output 처리
+            {
+              echo 'list<<EOF'
+              echo -e "$LIST"
+              echo 'EOF'
+            } >> $GITHUB_OUTPUT
+          fi
+
+      - name: ③ 주간 요약 Issue 생성
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const since  = '${{ steps.posts.outputs.since }}';
+            const hasPosts = '${{ steps.posts.outputs.has_posts }}' === 'true';
+            const list   = `${{ steps.posts.outputs.list }}`;
+            const today  = new Date().toISOString().slice(0,10);
+
+            const body = `
+            ## 📋 주간 Wiki 요약 (${since} ~ ${today})
+
+            ### 이번 주 작성된 문서
+
+            ${list}
+
+            ---
+            ### ✅ 이번 주 체크리스트
+
+            - [ ] 트러블슈팅 기록 업데이트
+            - [ ] 주간 회고 작성
+            - [ ] 미완성 문서 보완
+
+            > 🤖 이 이슈는 GitHub Actions가 자동으로 생성했습니다.
+            `.trim();
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: \`📋 주간 Wiki 요약 — \${today}\`,
+              body,
+              labels: ['주간 요약']
+            });

@@ -1,0 +1,51 @@
+# .github/labeler.yml
+# PR에서 변경된 파일 경로를 보고 라벨을 자동으로 붙이는 규칙
+# 03-auto-label.yml 워크플로우에서 사용
+
+"📁 프로젝트 로그":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/프로젝트로그/**"
+
+"🎨 프론트엔드":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/프론트엔드/**"
+
+"⚙️ 백엔드 › 추천":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/백엔드/추천/**"
+
+"⚙️ 백엔드 › 분석":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/백엔드/분석/**"
+
+"⚙️ 백엔드 › 이탈률":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/백엔드/이탈률/**"
+
+"⚙️ 백엔드 › 로그 수집":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/백엔드/로그수집/**"
+
+"🏗️ 인프라":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/인프라/**"
+
+"🔧 트러블슈팅":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/트러블슈팅/**"
+
+"📐 팀 컨벤션":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/팀컨벤션/**"
+
+"🔄 팀 회고":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/팀회고/**"
+
+"⚙️ 설정 변경":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "_config.yml"
+      - "Gemfile"
+      - "admin/config.yml"
+      - ".github/**"

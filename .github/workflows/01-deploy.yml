@@ -1,0 +1,71 @@
+# ============================================================
+# 01-deploy.yml
+# 역할: main 브랜치 push 시 Jekyll 빌드 → GitHub Pages 배포
+# 트리거: main 브랜치 push, 수동 실행
+# ============================================================
+
+name: 🚀 Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:          # 수동 실행 버튼 활성화
+
+# Pages 배포에 필요한 권한
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시 배포 방지 (이전 배포 중이면 대기, 불필요한 중복 취소)
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ────────────────────────────────────────
+  # JOB 1: Jekyll 빌드
+  # ────────────────────────────────────────
+  build:
+    name: Build Jekyll
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ① 소스 체크아웃
+        uses: actions/checkout@v4
+
+      - name: ② Ruby 설치 (Gemfile 기반 캐시)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true       # Gemfile.lock 기반 gem 캐시
+
+      - name: ③ Pages 설정 정보 가져오기
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: ④ Jekyll 빌드
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: ⑤ 빌드 결과물 업로드
+        uses: actions/upload-pages-artifact@v3
+        # _site/ 폴더가 자동으로 업로드됨
+
+  # ────────────────────────────────────────
+  # JOB 2: GitHub Pages 배포
+  # ────────────────────────────────────────
+  deploy:
+    name: Deploy to Pages
+    needs: build                  # build 성공 후 실행
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}   # 배포 URL 표시
+
+    steps:
+      - name: ⑥ GitHub Pages에 배포
+        id: deployment
+        uses: actions/deploy-pages@v4
