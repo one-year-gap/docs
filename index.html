@@ -438,14 +438,14 @@
     <button class="f-btn on" onclick="filter('전체',this)">전체</button>
     <button class="f-btn" onclick="filter('프로젝트로그',this)">📁 프로젝트 로그</button>
     <div class="sub-filter-group" style="--sub-color:var(--cat-front); --sub-bg:rgba(61,255,160,0.1)">
-      <button class="f-btn sub-parent" onclick="toggleDrop('frontendDrop', event)">🎨 프론트엔드 ▾</button>
+      <button class="f-btn sub-parent" data-cat-parent="프론트엔드" onclick="toggleDrop('frontendDrop', event, this)">🎨 프론트엔드 ▾</button>
       <div class="sub-drop" id="frontendDrop">
         <button onclick="filterSub('frontendDrop','프론트엔드/client',this)">client</button>
         <button onclick="filterSub('frontendDrop','프론트엔드/admin',this)">admin</button>
       </div>
     </div>
     <div class="sub-filter-group" style="--sub-color:var(--cat-back); --sub-bg:rgba(181,123,255,0.1)">
-      <button class="f-btn sub-parent" onclick="toggleDrop('backendDrop', event)">⚙️ 백엔드 ▾</button>
+      <button class="f-btn sub-parent" data-cat-parent="백엔드" onclick="toggleDrop('backendDrop', event, this)">⚙️ 백엔드 ▾</button>
       <div class="sub-drop" id="backendDrop">
         <button onclick="filterSub('backendDrop','백엔드/추천',this)">🎯 추천</button>
         <button onclick="filterSub('backendDrop','백엔드/분석',this)">📊 분석</button>
@@ -455,7 +455,7 @@
     </div>
     <button class="f-btn" onclick="filter('인프라',this)">🏗️ 인프라</button>
     <div class="sub-filter-group" style="--sub-color:var(--cat-trouble); --sub-bg:rgba(255,94,122,0.1)">
-      <button class="f-btn sub-parent" onclick="toggleDrop('troubleDrop', event)">🔧 트러블슈팅 ▾</button>
+      <button class="f-btn sub-parent" data-cat-parent="트러블슈팅" onclick="toggleDrop('troubleDrop', event, this)">🔧 트러블슈팅 ▾</button>
       <div class="sub-drop" id="troubleDrop">
         <button onclick="filterSub('troubleDrop','트러블슈팅/인프라',this)">🏗️ 인프라</button>
         <button onclick="filterSub('troubleDrop','트러블슈팅/백엔드',this)">⚙️ 백엔드</button>
@@ -564,8 +564,12 @@
     document.getElementById(dropId)?.classList.remove('open');
     document.getElementById('posts').scrollIntoView({behavior:'smooth'});
   }
-  function toggleDrop(dropId, e) {
+  function toggleDrop(dropId, e, btn) {
     e.stopPropagation();
+    const parentCat = btn?.dataset.catParent;
+    if (parentCat) {
+      filter(parentCat, btn);
+    }
     document.querySelectorAll('.sub-drop').forEach(d => {
       if(d.id !== dropId) d.classList.remove('open');
     });
