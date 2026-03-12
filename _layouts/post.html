@@ -450,6 +450,9 @@ layout: null
           {{ badge_icon }} {{ cat }}{% if subcat %} · {{ subcat }}{% endif %}
         </span>
       {% endif %}
+      {% if page.pinned %}
+        <span class="meta-chip">📌 PINNED</span>
+      {% endif %}
       {% if page.stage %}<span class="meta-chip">{{ page.stage }}</span>{% endif %}
       {% if page.work_type %}<span class="meta-chip">{{ page.work_type }}</span>{% endif %}
       {% if page.task %}<span class="meta-chip">{{ page.task }}</span>{% endif %}

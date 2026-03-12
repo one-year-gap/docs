@@ -305,6 +305,19 @@
     }
     .post-body { padding: 16px; }
     .post-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+    .pin-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(248, 250, 252, 0.08);
+      color: #fde68a;
+      border: 1px solid rgba(252, 211, 77, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .pin-badge-icon { font-size: 10px; }
     .p-badge { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
     .post-date {
       font-family: 'JetBrains Mono', monospace;
@@ -589,6 +602,9 @@
       {% endif %}
       <div class="post-body">
         <div class="post-meta">
+          {% if post.pinned %}
+            <span class="pin-badge"><span class="pin-badge-icon">📌</span>PIN</span>
+          {% endif %}
           {% if cat == '프로젝트로그' %}<span class="p-badge" style="background:rgba(77,158,255,0.1);color:#4D9EFF">📁 {{ cat }}</span>
           {% elsif cat == '프론트엔드' %}<span class="p-badge" style="background:rgba(61,255,160,0.1);color:#3DFFA0">🎨 {{ cat }}{% if subcat %} · {{ subcat }}{% endif %}</span>
           {% elsif cat == '백엔드' %}<span class="p-badge" style="background:rgba(181,123,255,0.1);color:#B57BFF">⚙️ {{ cat }}{% if subcat %} · {{ subcat }}{% endif %}</span>
