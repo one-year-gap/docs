@@ -73,6 +73,15 @@
       background: linear-gradient(90deg, #4D9EFF, #B57BFF);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
+    .logo-main {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-astro {
+      width: 22px;
+      height: 22px;
+    }
     .logo-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 1.5px; }
     nav { display: flex; gap: 4px; align-items: center; }
     nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; }
@@ -102,30 +111,52 @@
     .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
     .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-top: 2px; }
 
-    /* ── TASKS ── */
+    /* ── PINNED DOCS ── */
     .intro-right { opacity: 0; animation: fadeUp 0.6s ease 0.3s forwards; }
     .task-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .task-header-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; white-space: nowrap; }
     .task-hr { flex: 1; height: 1px; background: var(--border); }
     .tasks { display: flex; flex-direction: column; gap: 7px; }
     .task {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 11px 15px;
-      display: flex; align-items: flex-start; gap: 11px;
-      transition: border-color 0.2s, background 0.2s;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
-    .task:hover { border-color: rgba(77,158,255,0.35); background: rgba(77,158,255,0.03); }
+    .task-link {
+      text-decoration: none;
+      color: inherit;
+    }
+    .task:hover {
+      border-color: rgba(77,158,255,0.35);
+      background: rgba(77,158,255,0.06);
+      transform: translateY(-1px);
+    }
     .badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      font-weight: 700; letter-spacing: 0.5px;
-      padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
-    .b-fe  { background: rgba(61,255,160,0.1);  color: var(--green); }
-    .b-be  { background: rgba(181,123,255,0.1); color: var(--purple); }
-    .b-fs  { background: rgba(77,158,255,0.1);  color: var(--accent); }
-    .b-opt { background: rgba(245,200,66,0.1);  color: var(--gold); }
+    .b-fe  { background: rgba(61,255,160,0.12);  color: var(--green); }
+    .b-be  { background: rgba(181,123,255,0.12); color: var(--purple); }
+    .b-fs  { background: rgba(77,158,255,0.12);  color: var(--accent); }
+    .b-opt { background: rgba(245,200,66,0.12);  color: var(--gold); }
     .task-text { font-size: 12.5px; color: var(--text); line-height: 1.55; }
-    .opt-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--gold); margin-left: 5px; }
+    .tasks-empty {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 10px 2px;
+    }
 
     /* ── DIVIDER ── */
     .divider { max-width: 1200px; margin: 56px auto 0; height: 1px; background: var(--border); position: relative; z-index: 1; }
@@ -190,8 +221,24 @@
 
     /* ── FILTER / POSTS ── */
     .filter-bar { display: flex; gap: 7px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
-    .f-btn { padding: 5px 13px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 12px; font-weight: 500; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s; }
-    .f-btn.on, .f-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(77,158,255,0.07); }
+    .f-btn {
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all 0.15s;
+    }
+    .f-btn.on,
+    .f-btn:hover {
+      border-color: var(--accent);
+      color: #ffffff;
+      background: rgba(77,158,255,0.16);
+    }
 
     /* category filter dropdown */
     .sub-filter-group { position: relative; }
@@ -249,7 +296,12 @@
     .post-body { padding: 16px; }
     .post-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
     .p-badge { font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
-    .post-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-left: auto; }
+    .post-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #e5e7eb;
+      margin-left: auto;
+    }
     .post-title { font-size: 14px; font-weight: 700; line-height: 1.45; margin-bottom: 6px; }
     .post-excerpt {
       font-size: 12px;
@@ -270,7 +322,11 @@
       background: #1f2937;
       color: #e5e7eb;
     }
-    .p-author { font-size: 11px; color: var(--muted); margin-left: auto; }
+    .p-author {
+      font-size: 11px;
+      color: #d1d5db;
+      margin-left: auto;
+    }
 
     .empty { grid-column: 1/-1; text-align: center; padding: 64px 0; color: var(--muted); }
     .empty .e-icon { font-size: 38px; margin-bottom: 10px; }
@@ -292,7 +348,10 @@
   <div class="logo-wrap">
     <div class="logo-mark">H</div>
     <div>
-      <div class="logo-text">HOLLIVERSE</div>
+      <div class="logo-main">
+        <div class="logo-text">HOLLIVERSE</div>
+        <img class="logo-astro" src="{{ '/image 39.svg' | relative_url }}" alt="Holliverse" />
+      </div>
       <div class="logo-sub">WIKI · DOCS · ARCHIVE</div>
     </div>
   </div>
@@ -487,7 +546,7 @@
   </div>
 
   <div class="posts-grid" id="grid">
-    {% assign sorted = site.posts | sort: 'date' | reverse %}
+    {% assign sorted = site.posts | sort: 'date' %}
     {% for post in sorted %}
     {% assign parts = post.path | split: '/' %}
     {% assign cat = parts[1] %}
@@ -501,7 +560,7 @@
         <img class="post-thumb" src="{{ post.thumbnail }}" alt="{{ post.title }}" />
       {% else %}
         <div class="post-thumb post-thumb-default">
-          <img src="{{ '/charac.png' | relative_url }}" alt="기본 썸네일" />
+          <img src="{{ '/image 39.svg' | relative_url }}" alt="기본 썸네일" />
         </div>
       {% endif %}
       <div class="post-body">
