@@ -398,18 +398,32 @@
 
     <div class="intro-right">
       <div class="task-header">
-        <span class="task-header-label">// 세부 과업</span>
+        <span class="task-header-label">// PINNED DOCS</span>
         <div class="task-hr"></div>
       </div>
       <div class="tasks">
-        <div class="task"><span class="badge b-fe">FE</span><span class="task-text">고객 기본 정보 조회 화면 — 가입 서비스 유형, 이용 기간 등</span></div>
-        <div class="task"><span class="badge b-fe">FE</span><span class="task-text">고객별 상담 이력 요약 정보 조회 화면 구현</span></div>
-        <div class="task"><span class="badge b-be">BE</span><span class="task-text">고객 데이터 저장·조회를 위한 백엔드 API 설계 및 연동</span></div>
-        <div class="task"><span class="badge b-fs">풀스택</span><span class="task-text">이용 정보 + 상담 이력 조합 → 고객 특성 정보 자동 생성</span></div>
-        <div class="task"><span class="badge b-fs">풀스택</span><span class="task-text">고객 특성 기준 목록 분류·필터링 — 문의 유형, 상담 빈도 등</span></div>
-        <div class="task"><span class="badge b-fe">FE</span><span class="task-text">고객별 주요 특징을 한눈에 확인하는 고객 상세 화면</span></div>
-        <div class="task"><span class="badge b-opt">선택</span><span class="task-text">Google 로그인 기반 사용자 인증<span class="opt-label">OPTIONAL</span></span></div>
-        <div class="task"><span class="badge b-opt">선택</span><span class="task-text">고객 유형별 분포 통계 / 차트 화면<span class="opt-label">OPTIONAL</span></span></div>
+        {% assign pinned = site.posts | where_exp: "p", "p.pinned == true" | sort: "date" | reverse %}
+        {% if pinned.size > 0 %}
+          {% for post in pinned limit:7 %}
+            {% assign parts = post.path | split: '/' %}
+            {% assign cat = parts[1] %}
+            {% assign badge_class = 'b-fs' %}
+            {% assign badge_label = cat %}
+            {% if cat == '프론트엔드' %}
+              {% assign badge_class = 'b-fe' %}
+              {% assign badge_label = 'FE' %}
+            {% elsif cat == '백엔드' %}
+              {% assign badge_class = 'b-be' %}
+              {% assign badge_label = 'BE' %}
+            {% endif %}
+            <a class="task task-link" href="{{ post.url | relative_url }}">
+              <span class="badge {{ badge_class }}">{{ badge_label }}</span>
+              <span class="task-text">{{ post.title }}</span>
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="tasks-empty">핀 고정된 문서를 여기에 보여줄게요. 문서 헤더에 <code>pinned: true</code>를 추가하면 표시됩니다.</div>
+        {% endif %}
       </div>
     </div>
 
