@@ -6,9 +6,13 @@
   - changed-files:
     - any-glob-to-any-file: "_posts/프로젝트로그/**"
 
-"🎨 프론트엔드":
+"🎨 프론트엔드 › client":
   - changed-files:
-    - any-glob-to-any-file: "_posts/프론트엔드/**"
+    - any-glob-to-any-file: "_posts/프론트엔드/client/**"
+
+"🎨 프론트엔드 › admin":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/프론트엔드/admin/**"
 
 "⚙️ 백엔드 › 추천":
   - changed-files:
@@ -30,9 +34,17 @@
   - changed-files:
     - any-glob-to-any-file: "_posts/인프라/**"
 
-"🔧 트러블슈팅":
+"🔧 트러블슈팅 › 인프라":
   - changed-files:
-    - any-glob-to-any-file: "_posts/트러블슈팅/**"
+    - any-glob-to-any-file: "_posts/트러블슈팅/인프라/**"
+
+"🔧 트러블슈팅 › 백엔드":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/트러블슈팅/백엔드/**"
+
+"🔧 트러블슈팅 › 프론트엔드":
+  - changed-files:
+    - any-glob-to-any-file: "_posts/트러블슈팅/프론트엔드/**"
 
 "📐 팀 컨벤션":
   - changed-files:

@@ -55,17 +55,49 @@ collections:
       - { label: "본문", name: "body", widget: "markdown" }
 
   # ──────────────────────────────────────────
-  # 02. 프론트엔드
+  # 02-A. 프론트엔드 > client
   # ──────────────────────────────────────────
-  - name: "frontend"
-    label: "🎨 프론트엔드"
-    label_singular: "프론트엔드"
-    folder: "_posts/프론트엔드"
+  - name: "frontend-client"
+    label: "🎨 프론트엔드 › client"
+    label_singular: "client"
+    folder: "_posts/프론트엔드/client"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "제목", name: "title", widget: "string",
-          hint: "예: 고객 목록 필터 컴포넌트 구현" }
+          hint: "예: 고객용 메인 대시보드 UI 구현" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "작업 유형"
+        name: "work_type"
+        widget: "select"
+        options:
+          - "화면 구현"
+          - "컴포넌트 설계"
+          - "상태 관리"
+          - "API 연동"
+          - "스타일링"
+          - "성능 최적화"
+          - "기타"
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "스크린샷", name: "thumbnail", widget: "image", required: false }
+      - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [],
+          hint: "예: React, TypeScript, Tailwind" }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결" }
+
+  # ──────────────────────────────────────────
+  # 02-B. 프론트엔드 > admin
+  # ──────────────────────────────────────────
+  - name: "frontend-admin"
+    label: "🎨 프론트엔드 › admin"
+    label_singular: "admin"
+    folder: "_posts/프론트엔드/admin"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: 관리자용 고객 상세 화면 구현" }
       - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - label: "작업 유형"
         name: "work_type"
@@ -238,12 +270,49 @@ collections:
       - { label: "본문", name: "body", widget: "markdown" }
 
   # ──────────────────────────────────────────
-  # 05. 트러블슈팅
+  # 05-A. 트러블슈팅 > 인프라
   # ──────────────────────────────────────────
-  - name: "troubleshooting"
-    label: "🔧 트러블슈팅"
-    label_singular: "트러블슈팅"
-    folder: "_posts/트러블슈팅"
+  - name: "troubleshooting-infra"
+    label: "🔧 트러블슈팅 › 인프라"
+    label_singular: "인프라"
+    folder: "_posts/트러블슈팅/인프라"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: Cloudflare Pages 배포 시 404 오류 해결" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "영역"
+        name: "domain"
+        widget: "select"
+        options: ["인프라"]
+      - label: "심각도"
+        name: "severity"
+        widget: "select"
+        options:
+          - { label: "🟢 Minor — 불편함", value: "Minor" }
+          - { label: "🟡 Major — 기능 막힘", value: "Major" }
+          - { label: "🔴 Critical — 전체 중단", value: "Critical" }
+      - label: "해결 상태"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "✅ 해결됨", value: "resolved" }
+          - { label: "⏳ 진행 중", value: "in-progress" }
+          - { label: "🚫 미해결", value: "unresolved" }
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+
+  # ──────────────────────────────────────────
+  # 05-B. 트러블슈팅 > 백엔드
+  # ──────────────────────────────────────────
+  - name: "troubleshooting-backend"
+    label: "🔧 트러블슈팅 › 백엔드"
+    label_singular: "백엔드"
+    folder: "_posts/트러블슈팅/백엔드"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -253,7 +322,44 @@ collections:
       - label: "영역"
         name: "domain"
         widget: "select"
-        options: ["프론트엔드", "백엔드", "인프라", "공통"]
+        options: ["백엔드"]
+      - label: "심각도"
+        name: "severity"
+        widget: "select"
+        options:
+          - { label: "🟢 Minor — 불편함", value: "Minor" }
+          - { label: "🟡 Major — 기능 막힘", value: "Major" }
+          - { label: "🔴 Critical — 전체 중단", value: "Critical" }
+      - label: "해결 상태"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "✅ 해결됨", value: "resolved" }
+          - { label: "⏳ 진행 중", value: "in-progress" }
+          - { label: "🚫 미해결", value: "unresolved" }
+      - { label: "작성자", name: "author", widget: "string" }
+      - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
+      - { label: "태그", name: "tags", widget: "list", default: [] }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+
+  # ──────────────────────────────────────────
+  # 05-C. 트러블슈팅 > 프론트엔드
+  # ──────────────────────────────────────────
+  - name: "troubleshooting-frontend"
+    label: "🔧 트러블슈팅 › 프론트엔드"
+    label_singular: "프론트엔드"
+    folder: "_posts/트러블슈팅/프론트엔드"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "제목", name: "title", widget: "string",
+          hint: "예: React hydration 오류 해결" }
+      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - label: "영역"
+        name: "domain"
+        widget: "select"
+        options: ["프론트엔드"]
       - label: "심각도"
         name: "severity"
         widget: "select"
