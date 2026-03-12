@@ -48,11 +48,36 @@ collections:
           - "Google 로그인 (선택)"
           - "통계/차트 화면 (선택)"
           - "기타"
+      - label: "영역"
+        name: "domain"
+        widget: "select"
+        required: false
+        options:
+          - "공통"
+          - "백엔드"
+          - "프론트엔드"
+          - "인프라"
+      - label: "기록 성격"
+        name: "decision_type"
+        widget: "select"
+        required: false
+        options:
+          - "기술 선택"
+          - "아키텍처 결정"
+          - "트레이드오프 검토"
+          - "문제 분석"
+          - "실험 / PoC"
+          - "기타"
+      - { label: "고민 포인트", name: "considerations", widget: "text", required: false,
+          hint: "예: Redis를 붙일지, DB 조회만으로 갈지 / 동기 처리 vs 비동기 처리" }
+      - { label: "기술 선택 이유", name: "decision_reason", widget: "text", required: false,
+          hint: "예: 초기엔 구현 복잡도를 낮추고, 트래픽 증가 시 Redis 캐시를 단계적으로 도입" }
       - { label: "작성자", name: "author", widget: "string" }
       - { label: "이미지 (스크린샷, 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
-      - { label: "본문", name: "body", widget: "markdown" }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 배경\n\n## 고려한 선택지\n\n## 최종 선택\n\n## 선택 이유\n\n## 다음 액션" }
 
   # ──────────────────────────────────────────
   # 02-A. 프론트엔드 > client

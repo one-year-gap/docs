@@ -266,6 +266,33 @@ layout: null
       border-top: 1px solid var(--border);
     }
 
+    .decision-box {
+      margin-bottom: 28px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(79, 255, 176, 0.08), rgba(79, 255, 176, 0.03));
+    }
+
+    .decision-item + .decision-item {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .decision-label {
+      margin-bottom: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+    }
+
+    .decision-copy {
+      color: #d5d9e5;
+      line-height: 1.8;
+    }
+
     @media (max-width: 720px) {
       header { padding: 0 20px; }
       .post-hero,
@@ -328,6 +355,7 @@ layout: null
       {% if page.work_type %}<span class="meta-chip">{{ page.work_type }}</span>{% endif %}
       {% if page.task %}<span class="meta-chip">{{ page.task }}</span>{% endif %}
       {% if page.domain %}<span class="meta-chip">{{ page.domain }}</span>{% endif %}
+      {% if page.decision_type %}<span class="meta-chip">{{ page.decision_type }}</span>{% endif %}
       {% if page.severity %}<span class="meta-chip">{{ page.severity }}</span>{% endif %}
       {% if page.status %}<span class="meta-chip">{{ page.status }}</span>{% endif %}
       {% if page.conv_type %}<span class="meta-chip">{{ page.conv_type }}</span>{% endif %}
@@ -347,6 +375,22 @@ layout: null
   {% endif %}
 
   <article>
+    {% if page.considerations or page.decision_reason %}
+      <div class="decision-box">
+        {% if page.considerations %}
+          <div class="decision-item">
+            <div class="decision-label">고민 포인트</div>
+            <div class="decision-copy">{{ page.considerations | newline_to_br }}</div>
+          </div>
+        {% endif %}
+        {% if page.decision_reason %}
+          <div class="decision-item">
+            <div class="decision-label">기술 선택 이유</div>
+            <div class="decision-copy">{{ page.decision_reason | newline_to_br }}</div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
     <div class="markdown-body">
       {{ content }}
     </div>
