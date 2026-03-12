@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: your-org/your-repo        # ← 본인 조직/레포명으로 변경
+  repo: one-year-gap/docs
   branch: main
-  base_url: https://your-oauth-proxy.workers.dev  # ← OAuth 프록시 URL
+  base_url: https://sveltia-cms-auth.holliverse.workers.dev
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
