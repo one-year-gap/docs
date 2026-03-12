@@ -287,6 +287,11 @@ collections:
           - "모니터링 연동"
           - "기타"
       - { label: "작성자", name: "author", widget: "string" }
+      - label: "핀 고정"
+        name: "pinned"
+        widget: "boolean"
+        required: false
+        default: false
       - { label: "이미지 (파이프라인 다이어그램 등)", name: "thumbnail", widget: "image", required: false }
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
