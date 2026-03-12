@@ -8,6 +8,7 @@ url: "https://one-year-gap.github.io"
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:year/:month/:day/:title/
+future: true
 
 plugins:
   - jekyll-feed
