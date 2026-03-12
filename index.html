@@ -456,7 +456,7 @@
 
   <div class="posts-grid" id="grid">
     {% assign sorted = site.posts | sort: 'date' | reverse %}
-    {% for post in sorted limit:12 %}
+    {% for post in sorted %}
     {% assign cat = post.categories | first %}
     {% assign subcat = post.categories[1] %}
     {% assign fullcat = post.categories | join: '/' %}

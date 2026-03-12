@@ -186,7 +186,7 @@ layout: null
 
     .markdown-body pre {
       border: 1px solid var(--border);
-      border-radius: 0;
+      border-radius: 6px;
       overflow: hidden;
       margin: 16px 0;
       background: #0b1220;
@@ -307,6 +307,91 @@ layout: null
       border: none;
     }
 
+    .post-thumb-placeholder {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #f9fafb;
+    }
+
+    .post-thumb-placeholder-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .post-thumb-placeholder-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .post-pager {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .post-pager-link {
+      display: block;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f3f6ff;
+      border: 1px solid #d5d9e8;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .post-pager-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .post-pager-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .next-doc-card {
+      margin-top: 40px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #f9fafb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .next-doc-text {
+      flex: 1;
+    }
+
+    .next-doc-label {
+      font-size: 11px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .next-doc-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .next-doc-arrow {
+      font-size: 18px;
+    }
+
     @media (max-width: 720px) {
       header { padding: 0 20px; }
       .post-hero,
@@ -386,6 +471,13 @@ layout: null
     <div class="post-thumb-wrap">
       <img class="post-thumb-hero" src="{{ page.thumbnail }}" alt="{{ page.title }}" />
     </div>
+  {% else %}
+    <div class="post-thumb-wrap">
+      <div class="post-thumb-hero post-thumb-placeholder">
+        <div class="post-thumb-placeholder-label">{{ cat }}</div>
+        <div class="post-thumb-placeholder-title">{{ page.title }}</div>
+      </div>
+    </div>
   {% endif %}
 
   <article>
@@ -414,6 +506,35 @@ layout: null
           <span class="tag-pill">#{{ tag }}</span>
         {% endfor %}
       </div>
+    {% endif %}
+
+    {% if page.next_doc_url %}
+      <a class="next-doc-card" href="{{ page.next_doc_url | relative_url }}">
+        <div class="next-doc-text">
+          <div class="next-doc-label">이어지는 글</div>
+          <div class="next-doc-title">
+            {{ page.next_doc_title | default: '다음 문서 바로가기' }}
+          </div>
+        </div>
+        <div class="next-doc-arrow">↗</div>
+      </a>
+    {% endif %}
+
+    {% if page.previous or page.next %}
+      <nav class="post-pager">
+        {% if page.previous %}
+          <a class="post-pager-link" href="{{ page.previous.url | relative_url }}">
+            <div class="post-pager-label">이전 글</div>
+            <div class="post-pager-title">{{ page.previous.title }}</div>
+          </a>
+        {% endif %}
+        {% if page.next %}
+          <a class="post-pager-link" href="{{ page.next.url | relative_url }}">
+            <div class="post-pager-label">다음 글</div>
+            <div class="post-pager-title">{{ page.next.title }}</div>
+          </a>
+        {% endif %}
+      </nav>
     {% endif %}
   </article>
 
