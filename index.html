@@ -36,7 +36,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: linear-gradient(180deg, #e7f0ff 0%, #101528 55%, #050811 100%);
+      background: linear-gradient(180deg, #050811 0%, #101528 45%, #e7f0ff 100%);
       color: var(--text);
       font-family: 'Noto Sans KR', sans-serif;
       min-height: 100vh;
@@ -289,7 +289,7 @@
 
 <!-- INTRO -->
 <section class="intro">
-  <p class="intro-eyebrow"><span class="live-dot"></span>PROJECT DOCUMENTATION · 2025</p>
+  <p class="intro-eyebrow"><span class="live-dot"></span>URECKA PROJECT DOCUMENTATION · 2026</p>
   <div class="intro-grid">
 
     <div class="intro-left">
@@ -473,11 +473,11 @@
   <div class="posts-grid" id="grid">
     {% assign sorted = site.posts | sort: 'date' | reverse %}
     {% for post in sorted %}
-    {% assign cat = post.categories | first %}
-    {% assign subcat = post.categories[1] %}
     {% assign fullcat = post.categories | join: '/' %}
+    {% assign cat = fullcat | split: '/' | first %}
+    {% assign subcat = fullcat | split: '/' | slice: 1, 1 | first %}
     <a href="{{ post.url | relative_url }}" class="post-card" data-parent="{{ cat }}" data-cat="{{ fullcat }}" data-title="{{ post.title | downcase }}" style="animation-delay:{{ forloop.index | times: 0.05 }}s">
-      {% if post.thumbnail %}
+      {% if post.thumbnail and post.thumbnail != '' and post.thumbnail != blank %}
         <img class="post-thumb" src="{{ post.thumbnail }}" alt="{{ post.title }}" />
       {% else %}
         <div class="post-thumb post-thumb-default">
@@ -539,9 +539,7 @@
   }
   function getParentCategory(el) {
     if (!el) return '';
-    const direct = el.dataset.parent;
-    if (direct) return direct;
-    const full = el.dataset.cat || '';
+    const full = el.dataset.cat || el.dataset.parent || '';
     return full.split('/')[0] || '';
   }
   function filter(cat, btn) {

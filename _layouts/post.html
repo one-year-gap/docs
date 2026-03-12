@@ -523,8 +523,9 @@ layout: null
     {% comment %}
       같은 1차 카테고리(예: 백엔드, 프론트엔드) 안에서 작성일 기준 이전/다음 글 계산
     {% endcomment %}
-    {% assign current_parent = page.categories | first %}
-    {% assign same_cat_posts = site.posts | where_exp: "p", "p.categories contains current_parent" | sort: "date" %}
+    {% assign current_fullcat = page.categories | join: '/' %}
+    {% assign current_parent = current_fullcat | split: '/' | first %}
+    {% assign same_cat_posts = site.posts | where_exp: "p", "(p.categories | join: '/' | split: '/' | first) == current_parent" | sort: "date" %}
     {% assign current_index = nil %}
     {% for p in same_cat_posts %}
       {% if p.url == page.url %}
