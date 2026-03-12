@@ -333,8 +333,8 @@ layout: null
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
-      margin-top: 48px;
-      padding-top: 24px;
+      margin-top: 32px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
 
@@ -520,18 +520,36 @@ layout: null
       </a>
     {% endif %}
 
-    {% if page.previous or page.next %}
+    {% comment %}
+      같은 1차 카테고리(예: 백엔드, 프론트엔드) 안에서 작성일 기준 이전/다음 글 계산
+    {% endcomment %}
+    {% assign current_parent = page.categories | first %}
+    {% assign same_cat_posts = site.posts | where_exp: "p", "p.categories contains current_parent" | sort: "date" %}
+    {% assign current_index = nil %}
+    {% for p in same_cat_posts %}
+      {% if p.url == page.url %}
+        {% assign current_index = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
+    {% if current_index != nil %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      {% assign prev_post = same_cat_posts[prev_index] %}
+      {% assign next_post = same_cat_posts[next_index] %}
+    {% endif %}
+
+    {% if prev_post or next_post %}
       <nav class="post-pager">
-        {% if page.previous %}
-          <a class="post-pager-link" href="{{ page.previous.url | relative_url }}">
+        {% if prev_post %}
+          <a class="post-pager-link" href="{{ prev_post.url | relative_url }}">
             <div class="post-pager-label">이전 글</div>
-            <div class="post-pager-title">{{ page.previous.title }}</div>
+            <div class="post-pager-title">{{ prev_post.title }}</div>
           </a>
         {% endif %}
-        {% if page.next %}
-          <a class="post-pager-link" href="{{ page.next.url | relative_url }}">
+        {% if next_post %}
+          <a class="post-pager-link" href="{{ next_post.url | relative_url }}">
             <div class="post-pager-label">다음 글</div>
-            <div class="post-pager-title">{{ page.next.title }}</div>
+            <div class="post-pager-title">{{ next_post.title }}</div>
           </a>
         {% endif %}
       </nav>
