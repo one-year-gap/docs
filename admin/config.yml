@@ -5,7 +5,9 @@ backend:
   base_url: https://sveltia-cms-auth.holliverse.workers.dev
 
 media_folder: "assets/images/uploads"
-public_folder: "/assets/images/uploads"
+public_folder: "/docs/assets/images/uploads"
+site_url: https://one-year-gap.github.io/docs
+display_url: https://one-year-gap.github.io/docs
 locale: ko
 
 collections:

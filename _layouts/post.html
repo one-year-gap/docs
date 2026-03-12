@@ -1,0 +1,364 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #161a23;
+      --surface2: #1e2330;
+      --border: #252b3b;
+      --text: #e8eaf0;
+      --muted: #5a6080;
+      --accent: #4fffb0;
+      --project: #4d9eff;
+      --frontend: #3dffa0;
+      --backend: #b57bff;
+      --infra: #f5c842;
+      --trouble: #ff5e7a;
+      --convention: #ff9f5e;
+      --retro: #5edfff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 15, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .back-btn {
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+
+    .post-hero,
+    article {
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 40px;
+    }
+
+    .post-hero { margin-top: 60px; }
+
+    .post-meta-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .cat-badge,
+    .meta-chip,
+    .tag-pill {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .cat-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-chip,
+    .tag-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 4px 11px;
+    }
+
+    h1.post-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .post-excerpt-hero {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .post-thumb-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .post-thumb-hero {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    article { margin-bottom: 80px; }
+
+    .markdown-body {
+      line-height: 1.85;
+      font-size: 15px;
+      color: #c8cad4;
+      word-break: keep-all;
+    }
+
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3 {
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .markdown-body h1 {
+      font-size: 1.7em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin: 1.5em 0 0.6em;
+    }
+
+    .markdown-body h2 {
+      font-size: 1.35em;
+      margin: 1.5em 0 0.5em;
+    }
+
+    .markdown-body h3 {
+      font-size: 1.1em;
+      margin: 1.2em 0 0.4em;
+    }
+
+    .markdown-body code {
+      background: var(--surface2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      color: var(--accent);
+    }
+
+    .markdown-body pre {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+
+    .markdown-body pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .markdown-body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 10px 20px;
+      background: rgba(79, 255, 176, 0.04);
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      color: var(--muted);
+    }
+
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    .markdown-body td,
+    .markdown-body th {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .markdown-body th {
+      background: var(--surface2);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .markdown-body img {
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin: 16px 0;
+      display: block;
+    }
+
+    .markdown-body ul,
+    .markdown-body ol {
+      padding-left: 24px;
+      margin: 8px 0;
+    }
+
+    .markdown-body li { margin: 6px 0; }
+    .markdown-body strong { color: var(--text); }
+
+    .markdown-body a {
+      color: var(--accent);
+      border-bottom: 1px solid rgba(79, 255, 176, 0.3);
+      text-decoration: none;
+    }
+
+    .markdown-body a:hover { border-bottom-color: var(--accent); }
+    .markdown-body p { margin: 0.8em 0; }
+
+    .markdown-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    .tags-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 720px) {
+      header { padding: 0 20px; }
+      .post-hero,
+      article,
+      .post-thumb-wrap { padding: 0 20px; }
+      .post-hero { margin-top: 36px; }
+      .markdown-body { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  {% assign cat = page.categories | first %}
+  {% assign subcat = page.categories[1] %}
+  {% assign badge_icon = '📝' %}
+  {% assign badge_color = 'var(--accent)' %}
+  {% assign badge_bg = 'rgba(79, 255, 176, 0.1)' %}
+  {% if cat == '프로젝트로그' %}
+    {% assign badge_icon = '📁' %}
+    {% assign badge_color = 'var(--project)' %}
+    {% assign badge_bg = 'rgba(77, 158, 255, 0.1)' %}
+  {% elsif cat == '프론트엔드' %}
+    {% assign badge_icon = '🎨' %}
+    {% assign badge_color = 'var(--frontend)' %}
+    {% assign badge_bg = 'rgba(61, 255, 160, 0.1)' %}
+  {% elsif cat == '백엔드' %}
+    {% assign badge_icon = '⚙️' %}
+    {% assign badge_color = 'var(--backend)' %}
+    {% assign badge_bg = 'rgba(181, 123, 255, 0.1)' %}
+  {% elsif cat == '인프라' %}
+    {% assign badge_icon = '🏗️' %}
+    {% assign badge_color = 'var(--infra)' %}
+    {% assign badge_bg = 'rgba(245, 200, 66, 0.1)' %}
+  {% elsif cat == '트러블슈팅' %}
+    {% assign badge_icon = '🔧' %}
+    {% assign badge_color = 'var(--trouble)' %}
+    {% assign badge_bg = 'rgba(255, 94, 122, 0.1)' %}
+  {% elsif cat == '팀컨벤션' %}
+    {% assign badge_icon = '📐' %}
+    {% assign badge_color = 'var(--convention)' %}
+    {% assign badge_bg = 'rgba(255, 159, 94, 0.1)' %}
+  {% elsif cat == '팀회고' %}
+    {% assign badge_icon = '🔄' %}
+    {% assign badge_color = 'var(--retro)' %}
+    {% assign badge_bg = 'rgba(94, 223, 255, 0.1)' %}
+  {% endif %}
+
+  <header>
+    <a href="{{ '/' | relative_url }}" class="logo">TEAM/WIKI</a>
+    <a href="{{ '/' | relative_url }}" class="back-btn">← 목록으로</a>
+  </header>
+
+  <div class="post-hero">
+    <div class="post-meta-row">
+      {% if cat %}
+        <span class="cat-badge" style="color: {{ badge_color }}; background: {{ badge_bg }};">
+          {{ badge_icon }} {{ cat }}{% if subcat %} · {{ subcat }}{% endif %}
+        </span>
+      {% endif %}
+      {% if page.stage %}<span class="meta-chip">{{ page.stage }}</span>{% endif %}
+      {% if page.work_type %}<span class="meta-chip">{{ page.work_type }}</span>{% endif %}
+      {% if page.task %}<span class="meta-chip">{{ page.task }}</span>{% endif %}
+      {% if page.domain %}<span class="meta-chip">{{ page.domain }}</span>{% endif %}
+      {% if page.severity %}<span class="meta-chip">{{ page.severity }}</span>{% endif %}
+      {% if page.status %}<span class="meta-chip">{{ page.status }}</span>{% endif %}
+      {% if page.conv_type %}<span class="meta-chip">{{ page.conv_type }}</span>{% endif %}
+      {% if page.retro_type %}<span class="meta-chip">{{ page.retro_type }}</span>{% endif %}
+      {% if page.date %}<span class="meta-chip">{{ page.date | date: "%Y.%m.%d" }}</span>{% endif %}
+      {% if page.author %}<span class="meta-chip">✍️ {{ page.author }}</span>{% endif %}
+      {% if page.participants %}<span class="meta-chip">👥 {{ page.participants }}</span>{% endif %}
+    </div>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.excerpt %}<p class="post-excerpt-hero">{{ page.excerpt }}</p>{% endif %}
+  </div>
+
+  {% if page.thumbnail %}
+    <div class="post-thumb-wrap">
+      <img class="post-thumb-hero" src="{{ page.thumbnail }}" alt="{{ page.title }}" />
+    </div>
+  {% endif %}
+
+  <article>
+    <div class="markdown-body">
+      {{ content }}
+    </div>
+    {% if page.tags %}
+      <div class="tags-row">
+        {% for tag in page.tags %}
+          <span class="tag-pill">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

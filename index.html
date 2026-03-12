@@ -254,7 +254,7 @@
   <nav>
     <a href="#categories">카테고리</a>
     <a href="#posts">전체 글</a>
-    <a href="admin/" class="write-btn">✏️ 글쓰기</a>
+    <a href="{{ '/admin/' | relative_url }}" class="write-btn">✏️ 글쓰기</a>
   </nav>
 </header>
 
@@ -425,7 +425,7 @@
     {% assign sorted = site.posts | sort: 'date' | reverse %}
     {% for post in sorted limit:12 %}
     {% assign cat = post.categories | first %}
-    <a href="{{ post.url }}" class="post-card" data-cat="{{ cat }}" data-title="{{ post.title | downcase }}" style="animation-delay:{{ forloop.index | times: 0.05 }}s">
+    <a href="{{ post.url | relative_url }}" class="post-card" data-cat="{{ cat }}" data-title="{{ post.title | downcase }}" style="animation-delay:{{ forloop.index | times: 0.05 }}s">
       {% if post.thumbnail %}<img class="post-thumb" src="{{ post.thumbnail }}" alt="{{ post.title }}" />
       {% else %}<div class="post-thumb">{% if cat == '프로젝트로그' %}📁{% elsif cat == '프론트엔드' %}🎨{% elsif cat == '백엔드' %}⚙️{% elsif cat == '인프라' %}🏗️{% elsif cat == '트러블슈팅' %}🔧{% elsif cat == '팀컨벤션' %}📐{% else %}🔄{% endif %}</div>{% endif %}
       <div class="post-body">
@@ -459,7 +459,7 @@
     <div class="f-logo">HOLLIVERSE WIKI</div>
     <div class="f-sub">고객 데이터 기반 고객 분석 서비스 · 팀 프로젝트 문서 허브</div>
   </div>
-  <div class="f-right">Powered by GitHub Pages + Decap CMS</div>
+  <div class="f-right">Powered by GitHub Pages + Sveltia CMS</div>
 </footer>
 
 <script>

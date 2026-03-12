@@ -1,1 +1,6 @@
 sveltia-cms-auth/
+_site/
+vendor/
+.jekyll-cache/
+.bundle/
+.sass-cache/
