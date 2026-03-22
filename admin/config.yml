@@ -82,7 +82,7 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 배경\n\n## 고려한 선택지\n\n## 최종 선택\n\n## 선택 이유\n\n## 다음 액션" }
+          hint: "## 배경\n\n## 고려한 선택지\n\n## 최종 선택\n\n## 선택 이유\n\n## 다음 액션\n\n코드는 아래처럼 작성:\n```ts\nconst result = await fetchData();\nconsole.log(result);\n```" }
 
   # ──────────────────────────────────────────
   # 02-A. 프론트엔드 > client
@@ -119,7 +119,7 @@ collections:
       - { label: "태그", name: "tags", widget: "list", default: [],
           hint: "예: React, TypeScript, Tailwind" }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결" }
+          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결\n\n코드는 아래처럼 작성:\n```tsx\nconst title = 'Hello';\n```" }
 
   # ──────────────────────────────────────────
   # 02-B. 프론트엔드 > admin
@@ -156,7 +156,7 @@ collections:
       - { label: "태그", name: "tags", widget: "list", default: [],
           hint: "예: React, TypeScript, Tailwind" }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결" }
+          hint: "## 작업 내용\n\n## 구현 방식\n\n## 스크린샷\n\n## 이슈 & 해결\n\n코드는 아래처럼 작성:\n```tsx\nconst title = 'Hello';\n```" }
 
   # ──────────────────────────────────────────
   # 03-A. 백엔드 > 추천
@@ -191,7 +191,7 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 배경 & 목표\n\n## 알고리즘 설계\n\n## API 명세\n\n## 구현\n\n## 테스트 결과" }
+          hint: "## 배경 & 목표\n\n## 알고리즘 설계\n\n## API 명세\n\n## 구현\n\n## 테스트 결과\n\n코드는 아래처럼 작성:\n```python\nscores = model.predict(items)\n```" }
 
   # ──────────────────────────────────────────
   # 03-B. 백엔드 > 분석
@@ -226,7 +226,7 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 분석 목표\n\n## 데이터 흐름\n\n## 쿼리 / 로직\n\n## API 명세\n\n## 결과 검증" }
+          hint: "## 분석 목표\n\n## 데이터 흐름\n\n## 쿼리 / 로직\n\n## API 명세\n\n## 결과 검증\n\n코드는 아래처럼 작성:\n```sql\nSELECT customer_id, score\nFROM customer_scores;\n```" }
 
   # ──────────────────────────────────────────
   # 03-C. 백엔드 > 이탈률
@@ -261,7 +261,7 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 이탈률 정의 기준\n\n## 점수 산출 로직\n\n## API 명세\n\n## 구현\n\n## 검증" }
+          hint: "## 이탈률 정의 기준\n\n## 점수 산출 로직\n\n## API 명세\n\n## 구현\n\n## 검증\n\n코드는 아래처럼 작성:\n```python\nchurn_score = calculate_score(customer)\n```" }
 
   # ──────────────────────────────────────────
   # 03-D. 백엔드 > 로그 수집
@@ -296,7 +296,7 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 수집 대상 로그\n\n## 파이프라인 설계\n\n## 저장 스키마\n\n## API 명세\n\n## 운영 고려사항" }
+          hint: "## 수집 대상 로그\n\n## 파이프라인 설계\n\n## 저장 스키마\n\n## API 명세\n\n## 운영 고려사항\n\n코드는 아래처럼 작성:\n```json\n{\"event\":\"consult_created\",\"status\":\"ok\"}\n```" }
 
   # ──────────────────────────────────────────
   # 04. 인프라
@@ -327,7 +327,8 @@ collections:
       - { label: "한 줄 요약", name: "excerpt", widget: "string", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [],
           hint: "예: Docker, GitHub Actions, AWS, Nginx" }
-      - { label: "본문", name: "body", widget: "markdown" }
+      - { label: "본문", name: "body", widget: "markdown",
+          hint: "## 작업 내용\n\n## 구성 요소\n\n## 배포 흐름\n\n## 운영 포인트\n\n코드는 아래처럼 작성:\n```yaml\nservices:\n  app:\n    image: my-app:latest\n```" }
 
   # ──────────────────────────────────────────
   # 05-A. 트러블슈팅 > 인프라
@@ -364,7 +365,7 @@ collections:
       - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n코드는 아래처럼 작성:\n```bash\nnpm run build\n```\n\n## 교훈" }
 
   # ──────────────────────────────────────────
   # 05-B. 트러블슈팅 > 백엔드
@@ -401,7 +402,7 @@ collections:
       - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n코드는 아래처럼 작성:\n```java\nreturn ResponseEntity.ok(result);\n```\n\n## 교훈" }
 
   # ──────────────────────────────────────────
   # 05-C. 트러블슈팅 > 프론트엔드
@@ -438,7 +439,7 @@ collections:
       - { label: "에러 스크린샷", name: "thumbnail", widget: "image", required: false }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n```코드```\n\n## 교훈" }
+          hint: "## 문제 상황\n\n## 원인 분석\n\n## 해결 방법\n\n코드는 아래처럼 작성:\n```tsx\nreturn <Dashboard cards={cards} />;\n```\n\n## 교훈" }
 
   # ──────────────────────────────────────────
   # 06. 팀 컨벤션
@@ -470,7 +471,7 @@ collections:
       - { label: "작성자", name: "author", widget: "string" }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "팀이 합의한 규칙을 명확하게 작성하세요.\n\n## 규칙\n\n## 예시\n\n## 예외 사항" }
+          hint: "팀이 합의한 규칙을 명확하게 작성하세요.\n\n## 규칙\n\n## 예시\n\n## 예외 사항\n\n코드는 아래처럼 작성:\n```bash\ngit commit -m \"feat: add dashboard\"\n```" }
 
   # ──────────────────────────────────────────
   # 07. 팀 회고
@@ -498,4 +499,4 @@ collections:
           hint: "예: 김민준, 이수연, 박지호" }
       - { label: "태그", name: "tags", widget: "list", default: [] }
       - { label: "본문", name: "body", widget: "markdown",
-          hint: "## ✅ Keep (잘된 것)\n\n## 🔧 Problem (문제)\n\n## 💡 Try (다음에 시도할 것)\n\n## 🎯 다음 주 목표" }
+          hint: "## ✅ Keep (잘된 것)\n\n## 🔧 Problem (문제)\n\n## 💡 Try (다음에 시도할 것)\n\n## 🎯 다음 주 목표\n\n코드는 아래처럼 작성:\n```text\n회의 중 나온 로그나 명령어도 코드 블록으로 정리 가능\n```" }
