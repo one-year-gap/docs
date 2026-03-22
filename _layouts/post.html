@@ -184,7 +184,7 @@ layout: null
       color: var(--accent);
     }
 
-    .markdown-body .highlighter-rouge,
+    .markdown-body div.highlighter-rouge,
     .markdown-body pre {
       position: relative;
       margin: 22px 0;
@@ -199,7 +199,7 @@ layout: null
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
-    .markdown-body .highlighter-rouge::before,
+    .markdown-body div.highlighter-rouge::before,
     .markdown-body pre::before {
       content: attr(data-language);
       position: absolute;
@@ -218,7 +218,7 @@ layout: null
       backdrop-filter: blur(8px);
     }
 
-    .markdown-body .highlighter-rouge::after,
+    .markdown-body div.highlighter-rouge::after,
     .markdown-body pre::after {
       content: '';
       position: absolute;
@@ -234,8 +234,8 @@ layout: null
       opacity: 0.9;
     }
 
-    .markdown-body .highlighter-rouge > .highlight,
-    .markdown-body .highlighter-rouge pre,
+    .markdown-body div.highlighter-rouge > .highlight,
+    .markdown-body div.highlighter-rouge pre,
     .markdown-body pre code {
       display: block;
       background: linear-gradient(180deg, rgba(15, 19, 32, 0.96), rgba(10, 13, 22, 0.98));
@@ -248,7 +248,7 @@ layout: null
       -webkit-overflow-scrolling: touch;
     }
 
-    .markdown-body .highlighter-rouge pre {
+    .markdown-body div.highlighter-rouge pre {
       margin: 0;
       border: 0;
       border-radius: 0;
@@ -266,18 +266,18 @@ layout: null
     }
 
     .markdown-body pre code::-webkit-scrollbar,
-    .markdown-body .highlighter-rouge pre::-webkit-scrollbar {
+    .markdown-body div.highlighter-rouge pre::-webkit-scrollbar {
       height: 10px;
     }
 
     .markdown-body pre code::-webkit-scrollbar-thumb,
-    .markdown-body .highlighter-rouge pre::-webkit-scrollbar-thumb {
+    .markdown-body div.highlighter-rouge pre::-webkit-scrollbar-thumb {
       border-radius: 999px;
       background: rgba(159, 169, 201, 0.25);
     }
 
     .markdown-body pre code::-webkit-scrollbar-track,
-    .markdown-body .highlighter-rouge pre::-webkit-scrollbar-track {
+    .markdown-body div.highlighter-rouge pre::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.04);
     }
 
