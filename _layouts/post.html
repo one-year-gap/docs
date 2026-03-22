@@ -186,7 +186,7 @@ layout: null
     }
 
     .markdown-body div.highlighter-rouge,
-    .markdown-body pre {
+    .markdown-body pre[data-code-block='standalone'] {
       position: relative;
       margin: 22px 0;
       border: 1px solid rgba(122, 139, 184, 0.18);
@@ -201,7 +201,7 @@ layout: null
     }
 
     .markdown-body div.highlighter-rouge::before,
-    .markdown-body pre::before {
+    .markdown-body pre[data-code-block='standalone']::before {
       content: attr(data-language);
       position: absolute;
       top: 14px;
@@ -220,7 +220,7 @@ layout: null
     }
 
     .markdown-body div.highlighter-rouge::after,
-    .markdown-body pre::after {
+    .markdown-body pre[data-code-block='standalone']::after {
       content: '';
       position: absolute;
       top: 18px;
@@ -247,6 +247,14 @@ layout: null
       overflow-x: auto;
       tab-size: 2;
       -webkit-overflow-scrolling: touch;
+    }
+
+    .markdown-body pre {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
     }
 
     .markdown-body div.highlighter-rouge pre {
@@ -659,6 +667,9 @@ layout: null
       const language = languageMatch ? languageMatch[1].replace('plaintext', 'text') : 'code';
 
       container.setAttribute('data-language', language);
+      if (pre && container === pre) {
+        pre.setAttribute('data-code-block', 'standalone');
+      }
     });
   </script>
 </body>
