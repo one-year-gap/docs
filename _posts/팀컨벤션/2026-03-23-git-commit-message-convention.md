@@ -4,6 +4,7 @@ date: 2026-03-02
 conv_type: 커밋 메시지 규칙
 author: 허영현
 tags:
+  - 깃
   - 커밋
 ---
 
@@ -13,9 +14,9 @@ tags:
 
 커밋 메시지는 타입(Type)과 본문으로 구성되며, 콜론(`:`) 뒤에는 반드시 **한 칸의 공백**을 둡니다.
 
-**Format:** `{Type} {Emoji} {type}: {Commit Message}` 
+\*\*Format:\*\* `{Type} {Emoji} {type}: {Commit Message}`
 
-**Example:** `✨ feat: 회원가입 API 로직 구현` (Jira 티켓 번호는 자동 할당)
+\*\*Example:\*\* `✨ feat: 회원가입 API 로직 구현` (Jira 티켓 번호는 자동 할당)
 
 ## 2. Commit Type (작업 종류)
 
@@ -65,7 +66,7 @@ tags:
 
 ```plain
 # 기본 세팅 (package-lock.json 기반)
-$ npm ci  
+$ npm ci
 
 # 프론트엔드 (pnpm 사용 시)
 $ pnpm install
