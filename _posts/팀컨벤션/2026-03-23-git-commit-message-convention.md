@@ -4,7 +4,7 @@ date: 2026-03-02
 conv_type: 커밋 메시지 규칙
 author: 허영현
 tags:
-  - 깃
+  - git
   - 커밋
 ---
 
