@@ -12,16 +12,16 @@ tags:
 
 ## 1. Base URL
 
-- **고객용 API:** `https://api.holliverse.site`
-- **관리자용 API:** `https://api-admin.holliverse.site`
+- \*\*고객용 API:\*\* `https://api.holliverse.site`
+- \*\*관리자용 API:\*\* `https://api-admin.holliverse.site`
 
 ## 2. URL 설계 원칙 (Resource Naming)
 
-> **기본 구조:** `{{baseUrl}}/api/v1/{resource}`
+> \*\*기본 구조:\*\* `{{baseUrl}}/api/v1/{resource}`
 
-- **버전 명시:** URL 경로에 반드시 API 버전(`/v1/`)을 포함합니다.
-- **Kebab-case:** URL 경로의 단어 조합은 케밥케이스를 사용합니다. `ex) /user-profiles`
-- **명사 & 복수형 지향:** 행위(Verb) 대신 자원(Noun) 중심의 복수형 명사를 사용합니다.
+- \*\*버전 명시:\*\* URL 경로에 반드시 API 버전(`/v1/`)을 포함합니다.
+- \*\*Kebab-case:\*\* URL 경로의 단어 조합은 케밥케이스를 사용합니다. `ex) /user-profiles`
+- \*\*명사 & 복수형 지향:\*\* 행위(Verb) 대신 자원(Noun) 중심의 복수형 명사를 사용합니다.
     - ✅ `GET /api/v1/customers/1024/persona`
     - ❌ `GET /api/v1/getPersona/1024`
 
@@ -47,13 +47,12 @@ JSON
 {
   "status": "success",
   "message": "요청이 성공적으로 처리되었습니다.",
-  "data": { 
+  "data": {
     // 실제 비즈니스 결과물 데이터
   },
   "timestamp": "2026-02-10T17:50:00Z",
   "requestId": "req-1234abcd"
 }
-
 ```
 
 **❌ 실패 응답 (Error)**
@@ -72,7 +71,6 @@ JSON
   "timestamp": "2026-02-10T17:50:05Z",
   "requestId": "req-1234abcd"
 }
-
 ```
 
 ## 5. HTTP 상태 코드 (Status Codes)
@@ -86,13 +84,15 @@ JSON
 | 403 | Forbidden | 로그인 했지만 권한 없음(관리자 API 접근 등) |
 | **404** | Not Found | 존재하지 않는 고객 또는 요금제 ID |
 | 409 | Conflict | 중복(회원가입 중복) |
-| **500** | Internal Error | **Gemini API(AI)** 장애, DB 서버 오류 |
+| **500** | Internal Error | \*\*Gemini API(AI)\*\* 장애, DB 서버 오류 |
 
 ## 6. 공통 응답 필드 명세 (Common Response Fields)
 
+모든 API 응답은 일관된 처리를 위해 아래의 공통 필드 규격을 따릅니다.
+
 | **항목** | **필드명** | **설명** |
 | --- | --- | --- |
-| **관리 정보** | `requestId` | **[Required]** 요청 고유 식별자 (추적용) |
-| **결과 상태** | `status` | **[Required]** success / error |
+| **관리 정보** | `requestId` | \*\*[Required]\*\* 요청 고유 식별자 (추적용) |
+| **결과 상태** | `status` | \*\*[Required]\*\* success / error |
 | **실제 데이터** | `data` | 요금제 리스트, 상세 정보 등 (비즈니스 결과물) |
 | **발생 시점** | `timestamp` | 서버 응답 시간 |
