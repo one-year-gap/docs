@@ -131,9 +131,11 @@ CI/CD/CT 워크 플로우를 구성하며, 1가지의 큰 컨셉을 가져가기
 4. `aws ecs wait services-stable`로 안정화 대기
 
 > _배포 시간은 AWS CloudFormation/ECS의 원본 이벤트 시각을 기준으로 산출했다._
-> _CloudFormation은 stack의_ _UPDATE_IN_PROGRESS와_ _UPDATE_COMPLETE_ _차이를 사용했고, ECS는_ _PRIMARY deployment createdAt과_ _steady state_ _이벤트 차이를 사용했다._
+> _CloudFormation은 stack의 UPDATE_IN_PROGRESS와 UPDATE_COMPLETE 차이를 사용했고, ECS는PRIMARY deployment createdAt과 steady state이벤트 차이를 사용했다._
 
 #### 개선 지표 (By AWS CLI)
+
+![](/docs/assets/images/uploads/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-27%2004.35.11.png)
 
 ## 스택 분리: 모니터링은 ECS 클러스터와 같이 배포하지 않기
 
@@ -185,6 +187,8 @@ private static void deployMonitoring(DeploymentContext context) {
 
 #### 개선 지표 (By AWS CLI)
 
+![](/docs/assets/images/uploads/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-03-27%2004.44.58.png)
+
 ## 3) CT: 빠른 배포를 버티게 하는 공통 품질 게이트
 
 ![](/docs/assets/images/uploads/Option%20Subscriptions%20Flow-2026-03-26-182056.png)
@@ -207,3 +211,15 @@ private static void deployMonitoring(DeploymentContext context) {
 운영 측면에서 함께 의미 있었던 부분은 `로그 파이프라인 설계`였다.
 
 사용자 로그를 수집하는 MSK Connect S3 Sink는 `flush.size=1000`, `rotate.interval.ms=60000`, `partition.duration.ms=3600000` 기준으로 구성했다. 이 설정 덕분에 raw click log는 최대 60초 이내에 S3로 적재할 수 있었고, 1시간 파티션 단위와 비교하면 **98.3% 더 빠른 속도로 원본 로그를 저장하는 구조**를 만들 수 있었다.
+
+## 4) 개선 지표
+
+| 지표 | 기존 방식 | 개선 방식 | 개선율 | 의미 |
+
+| 모니터링 변경 배포 시간(평균) | 449.1초 | 82.7초 | -81.6% | 모니터링 변경을 ECS 전체 스택 배포와 분리해 더 빠르게 반영 |
+
+| 모니터링 배포 처리량 | 8.0회/시간 | 43.5회/시간 | +442.8% | 동일 시간 내 반영 가능한 모니터링 변경 수 대폭 증가 |
+
+| 서비스 배포 시간(중앙값) | 449.1초 | 220.4초 | -50.9% | stack deploy 대신 ECS revision rollout으로 전환 |
+
+| 서비스 배포 처리량 | 8.0회/시간 | 16.3회/시간 | +103.7% | 서비스 단위 배포 효율 증가 |
