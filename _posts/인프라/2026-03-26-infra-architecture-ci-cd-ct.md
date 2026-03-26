@@ -3,7 +3,7 @@ title: Infra Architecture - CI/CD/CT
 date: 2026-03-17
 work_type: CI/CD 파이프라인
 author: 김도연
-thumbnail: ''
+thumbnail: /docs/assets/images/uploads/1차 MVP - CICD.drawio.png
 excerpt: ''
 tags:
   - workflow
@@ -215,11 +215,7 @@ private static void deployMonitoring(DeploymentContext context) {
 ## 4) 개선 지표
 
 | 지표 | 기존 방식 | 개선 방식 | 개선율 | 의미 |
-
 | 모니터링 변경 배포 시간(평균) | 449.1초 | 82.7초 | -81.6% | 모니터링 변경을 ECS 전체 스택 배포와 분리해 더 빠르게 반영 |
-
 | 모니터링 배포 처리량 | 8.0회/시간 | 43.5회/시간 | +442.8% | 동일 시간 내 반영 가능한 모니터링 변경 수 대폭 증가 |
-
 | 서비스 배포 시간(중앙값) | 449.1초 | 220.4초 | -50.9% | stack deploy 대신 ECS revision rollout으로 전환 |
-
 | 서비스 배포 처리량 | 8.0회/시간 | 16.3회/시간 | +103.7% | 서비스 단위 배포 효율 증가 |
