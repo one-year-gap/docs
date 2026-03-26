@@ -3,7 +3,7 @@ title: Infra Architecture - Network
 date: 2026-03-17
 work_type: 클라우드 배포
 author: 김도연
-thumbnail: ''
+thumbnail: /docs/assets/images/uploads/네트워크.png
 excerpt: ''
 tags:
   - AWS
@@ -177,27 +177,7 @@ allowedIpList.forEach(ip -> {
 
 ## 6. 서비스 간 통신은 "필요 조합"만 Open
 
-```mermaid
-flowchart TD
-    CustomerALB["Customer ALB"] -->|customerServerPort| CustomerAPI["customer-api"]
-    AdminALB["Admin ALB"] -->|adminWebPort| AdminWeb["admin-web"]
-    AdminWeb -->|adminServerPort| AdminAPI["admin-api"]
-
-    CustomerAPI -->|adminServerPort| AdminAPI
-    CustomerAPI -->|8000 default| Intelligence["intelligence-server"]
-    AdminAPI -->|8000 default| Intelligence
-
-    CustomerAPI -->|5432| RDS["PostgreSQL"]
-    AdminAPI -->|5432| RDS
-    Intelligence -->|5432| RDS
-    Monitoring["monitoring EC2"] -->|5432| RDS
-
-    CustomerAPI -->|9098| MSK["MSK IAM/TLS"]
-    AdminAPI -->|9098| MSK
-    Intelligence -->|9098| MSK
-    Monitoring -->|9098| MSK
-    KafkaConnect["MSK Connect"] -->|9098| MSK
-```
+![](/docs/assets/images/uploads/mermaid-diagram%20%287%29.png)
 
 처음부터 서비스끼리 서로 자유롭게 통신하게 두고 싶지는 않았다. 같은 VPC 안에 있다고 해서 전부 열어 두면 나중에 구조가 복잡해질수록 어디서 어디로 붙는지 파악하기가 어려워진다고 생각했다. 그래서 실제로 필요한 통신만 하나씩 정리해서 열어 두는 방식으로 구성했다.
 
@@ -218,7 +198,7 @@ PrivateDnsNamespace serviceNs = PrivateDnsNamespace.Builder.create(this, DOMAIN_
         .build();
 ```
 
-모든 ECS 서비스는 `PRIVATE_WITH_EGRESS` 서브넷에 배치했다. 그리고 `Cloud Map` 기반의 `private DNS namespace`를 별도로 생성했다. 이 구조로 아래의 두 가지를 의도했다. 
+모든 ECS 서비스는 `PRIVATE_WITH_EGRESS` 서브넷에 배치했다. 그리고 `Cloud Map` 기반의 `private DNS namespace`를 별도로 생성했다. 이 구조로 아래의 두 가지를 의도했다.
 
 1. ECS 태스크는 퍼블릭 IP 없이 동작하므로 인터넷에서 직접 접근할 수 없다.
 2. 내부 서비스끼리는 고정 IP 대신 서비스 이름으로 서로를 찾을 수 있다.
@@ -258,7 +238,7 @@ this.rds = DatabaseInstance.Builder.create(this, "HolliversePostgres")
         .build();
 ```
 
-`publiclyAccessible(false)`가 핵심이다. DB는 인터넷에 직접 노출되지 않으며, 접근은 `dbSg`에 허용된 Security Group만 가능하다. 현재 코드 기준으로는 `customer-api`, `admin-api`, `intelligence-server`, `monitoring`이 DB에 접근할 수 있다. 
+`publiclyAccessible(false)`가 핵심이다. DB는 인터넷에 직접 노출되지 않으며, 접근은 `dbSg`에 허용된 Security Group만 가능하다. 현재 코드 기준으로는 `customer-api`, `admin-api`, `intelligence-server`, `monitoring`이 DB에 접근할 수 있다.
 
 `AWS MSK`를 사용하는 Kafka 계층도 동일한 방식을 적용했다.
 
